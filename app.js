@@ -22,16 +22,30 @@
       })
   });
 
+  // SERVICES
+  weatherApp.service('cityService', function (){
+    
+    this.city = 'San Francisco, CA';
+  });
+
   // CONTROLLERS
-  weatherApp.controller('mainController', ['$scope', '$log', function ($scope, $log){
+  weatherApp.controller('mainController', ['$scope', 'cityService', function ($scope, cityService){
+
+    $scope.cityName = cityService.city;
+    $scope.$watch('cityName', function () {
+      cityService.city = $scope.cityName;
+    });
     
   }]);
 
-  weatherApp.controller('forecastController', ['$scope', function ($scope){
+  weatherApp.controller('forecastController', ['$scope', 'cityService', function ($scope, cityService){
+
+    $scope.cityName = cityService.city;
     
   }]);
 
   weatherApp.controller('requirementsController', ['$scope', function ($scope){
 
   }]);
+
 }());
