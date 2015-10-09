@@ -1,4 +1,19 @@
 <div class="row">
   <h1>Forecast</h1>
-  {{ cityName }}
+  <p>{{ cityName }}</p>
+</div>
+
+<div ng-repeat="w in weatherResult.list">
+  <div class="row">
+    <div class="medium-12 columns">
+      <div class="content panel radius">
+        <!-- Date -->
+        <div class="panel callout radius">
+          <h5>{{ convertToDate(w.dt) | date: 'MMM d, y' }}</h5>
+        </div>
+        
+        <p>Daytime temperature: {{ convertToFahrenheit(w.temp.day) }}&#8457</p>
+      </div>
+    </div>
+  </div>
 </div>
