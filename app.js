@@ -45,7 +45,7 @@
 
     $scope.cityName = cityService.city;
 
-    $scope.days = $routeParams.days || 2;
+    $scope.days = $routeParams.days || '2';
 
     // get external data from weather api
     // url, paramDefaults, actions
