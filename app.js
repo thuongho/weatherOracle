@@ -16,10 +16,6 @@
         templateUrl: 'pages/forecast.html',
         controller: 'forecastController'  
       })
-      .when('/forecast/:days', {
-        templateUrl: 'pages/forecast.html',
-        controller: 'forecastController'
-      })
       .when('/requirements', {
         templateUrl: 'pages/requirements.html',
         controller: 'requirementsController'
@@ -41,32 +37,16 @@
     
   }]);
 
-  weatherApp.controller('forecastController', ['$scope', '$resource', '$routeParams', 'cityService', function ($scope, $resource, $routeParams, cityService){
+  weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService', function ($scope, $resource, cityService){
 
     $scope.cityName = cityService.city;
-
-    $scope.days = $routeParams.days || 2;
 
     // get external data from weather api
     // url, paramDefaults, actions
     $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily", { callback: "JSON_CALLBACK"}, { get: { method: "JSONP" }});
 
     // assign the data
-    // params in the api url
-    $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.cityName, cnt: $scope.days });
-
-    // console.log($scope.weatherResult);
-
-    // function to convert K to F
-    $scope.convertToFahrenheit = function(degK) {
-      return Math.round((1.8 * (degK -273)) + 32);
-    };
-
-    // function to convert time to human readable time
-    $scope.convertToDate = function(dt) {
-      // multiply 1000 to convert milliseconds to second
-      return new Date(dt * 1000);
-    };
+    $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: 2 });
     
   }]);
 
